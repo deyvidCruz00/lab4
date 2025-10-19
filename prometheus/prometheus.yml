@@ -28,6 +28,6 @@ scrape_configs:
     static_configs:
       - targets: ['node-exporter:9100']
 
-  - job_name: 'docker'
-    static_configs:
-      - targets: ['cadvisor:8080']  # si decides usar cAdvisor para contenedores
+# - job_name: 'docker'
+#   static_configs:
+#     - targets: ['cadvisor:8080']  # si decides usar cAdvisor para contenedores

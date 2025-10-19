@@ -15,10 +15,13 @@ services:
       - observ-net
 
   mysqld-exporter:
-    image: prom/mysqld-exporter:latest
+    image: prom/mysqld-exporter:v0.14.0
     container_name: mysqld-exporter
     environment:
-      DATA_SOURCE_NAME: "exporter:exporter_password@(mysql:3306)/"
+      DATA_SOURCE_NAME: "exporter:exporter_password@tcp(mysql:3306)/"
+      MYSQLD_EXPORTER_WEB_LISTEN_ADDRESS: "0.0.0.0:9104"
+    ports:
+      - "9104:9104"
     depends_on:
       - mysql
     networks:
