@@ -15,10 +15,10 @@ services:
       - observ-net
 
   mysqld-exporter:
-    image: prom/mysqld-exporter:v0.14.0
+    image: prom/mysqld-exporter:v0.15.0
     container_name: mysqld-exporter
     environment:
-      DATA_SOURCE_NAME: "exporter:exporter_password@tcp(mysql:3306)/"
+      DATA_SOURCE_NAME: "exporter:exporter_password@(mysql:3306)/"
       MYSQLD_EXPORTER_WEB_LISTEN_ADDRESS: "0.0.0.0:9104"
     ports:
       - "9104:9104"
@@ -107,6 +107,8 @@ services:
       - "3000:3000"
     volumes:
       - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
     depends_on:
       - prometheus
     networks:
