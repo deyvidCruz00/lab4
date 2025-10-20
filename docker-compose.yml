@@ -101,7 +101,8 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     environment:
-      GF_SECURITY_ADMIN_PASSWORD: "admin"
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
     ports:
       - "3000:3000"
     volumes:
@@ -120,6 +121,15 @@ services:
       - '--config.file=/etc/alertmanager/alertmanager.yml'
     ports:
       - "9093:9093"
+    networks:
+      - observ-net
+  
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - "1025:1025" 
+      - "8025:8025" 
     networks:
       - observ-net
 

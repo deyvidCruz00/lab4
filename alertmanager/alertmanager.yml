@@ -1,6 +1,6 @@
 global:
   resolve_timeout: 5m
-  smtp_smarthost: 'smtp.example.com:587'
+  smtp_smarthost: 'mailhog:1025'
   smtp_from: 'alertas@tudominio.com'
   smtp_auth_username: 'alertas@tudominio.com'
   smtp_auth_password: 'TU_SMTP_PASSWORD'
