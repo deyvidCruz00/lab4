@@ -1,0 +1,91 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Applications Dashboard (app1 & app2)",
+    "tags": ["applications", "flask"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Request Rate by Application",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "rate(app_requests_total{instance=~\"app1:5000\"}[5m])",
+            "legendFormat": "{{instance}} - {{path}} ({{code}})"
+          },
+          {
+            "expr": "rate(app_requests_total{instance=~\"app2:5000\"}[5m])",
+            "legendFormat": "{{instance}} - {{path}} ({{code}})"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}
+      },
+      {
+        "id": 2,
+        "title": "Total Requests by Application",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "sum(app_requests_total{instance=~\"app1:5000\"})",
+            "legendFormat": "App1 Total"
+          },
+          {
+            "expr": "sum(app_requests_total{instance=~\"app2:5000\"})",
+            "legendFormat": "App2 Total"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}
+      },
+      {
+        "id": 3,
+        "title": "Request Latency (95th percentile)",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(app_request_latency_seconds_bucket{instance=~\"app1:5000\"}[5m]))",
+            "legendFormat": "App1 - {{path}} (95th)"
+          },
+          {
+            "expr": "histogram_quantile(0.95, rate(app_request_latency_seconds_bucket{instance=~\"app2:5000\"}[5m]))",
+            "legendFormat": "App2 - {{path}} (95th)"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8}
+      },
+      {
+        "id": 4,
+        "title": "Average Request Latency",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "rate(app_request_latency_seconds_sum{instance=~\"app1:5000\"}[5m]) / rate(app_request_latency_seconds_count{instance=~\"app1:5000\"}[5m])",
+            "legendFormat": "App1 - {{path}} (avg)"
+          },
+          {
+            "expr": "rate(app_request_latency_seconds_sum{instance=~\"app2:5000\"}[5m]) / rate(app_request_latency_seconds_count{instance=~\"app2:5000\"}[5m])",
+            "legendFormat": "App2 - {{path}} (avg)"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8}
+      },
+      {
+        "id": 5,
+        "title": "HTTP Status Codes Distribution",
+        "type": "piechart",
+        "targets": [
+          {
+            "expr": "sum by (code) (app_requests_total)",
+            "legendFormat": "HTTP {{code}}"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 16}
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "refresh": "5s"
+  }
+}
