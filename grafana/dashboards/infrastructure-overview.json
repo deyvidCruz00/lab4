@@ -1,5 +1,5 @@
 {
-  "dashboard": {
+  
     "id": null,
     "title": "Infrastructure Overview",
     "tags": ["overview", "infrastructure"],
@@ -116,7 +116,7 @@
             "legendFormat": "MySQL Connections"
           },
           {
-            "expr": "rate(mysql_global_status_queries[5m])",
+            "expr": "rate(mysql_global_status_queries_total[5m])",
             "legendFormat": "MySQL Queries/sec"
           }
         ],
@@ -128,5 +128,5 @@
       "to": "now"
     },
     "refresh": "5s"
-  }
+  
 }

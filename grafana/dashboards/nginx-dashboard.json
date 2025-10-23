@@ -1,5 +1,5 @@
 {
-  "dashboard": {
+  
     "id": null,
     "title": "Nginx Dashboard",
     "tags": ["nginx", "load-balancer"],
@@ -39,7 +39,7 @@
         "type": "timeseries",
         "targets": [
           {
-            "expr": "rate(nginx_http_requests[5m])",
+            "expr": "rate(nginx_http_requests_total[5m])",
             "legendFormat": "HTTP Requests/sec"
           }
         ],
@@ -71,5 +71,5 @@
       "to": "now"
     },
     "refresh": "5s"
-  }
+  
 }

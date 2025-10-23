@@ -11,7 +11,7 @@ LATENCY = Histogram('app_request_latency_seconds', 'Latency in seconds', ['path'
 @app.route('/')
 def index():
     start = time.time()
-    # Simular un tiempo de respuesta pequeño
+    
     delay = random.choice([0.01, 0.02, 0.05, 0.2])
     time.sleep(delay)
     resp = jsonify({"msg": "hola desde app"})
@@ -27,6 +27,12 @@ def health():
 @app.route('/metrics')
 def metrics():
     return generate_latest(), 200, {'Content-Type': CONTENT_TYPE_LATEST}
+
+@app.route('/error')
+def simulate_error():
+    REQUESTS.labels(path='/error', method='GET', code='500').inc()
+    
+    return jsonify({"error": "Esto es un error simulado"}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

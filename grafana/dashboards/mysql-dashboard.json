@@ -1,5 +1,5 @@
 {
-  "dashboard": {
+  
     "id": null,
     "title": "MySQL Dashboard",
     "tags": ["mysql", "database"],
@@ -69,22 +69,6 @@
           }
         ],
         "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8}
-      },
-      {
-        "id": 5,
-        "title": "InnoDB Buffer Pool Usage",
-        "type": "timeseries",
-        "targets": [
-          {
-            "expr": "mysql_global_status_innodb_buffer_pool_pages_data * mysql_global_variables_innodb_page_size",
-            "legendFormat": "Data Pages"
-          },
-          {
-            "expr": "mysql_global_status_innodb_buffer_pool_pages_free * mysql_global_variables_innodb_page_size",
-            "legendFormat": "Free Pages"
-          }
-        ],
-        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 16}
       }
     ],
     "time": {
@@ -92,5 +76,5 @@
       "to": "now"
     },
     "refresh": "5s"
-  }
+  
 }

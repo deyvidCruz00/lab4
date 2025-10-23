@@ -18,18 +18,24 @@ services:
     image: prom/mysqld-exporter:v0.15.0
     container_name: mysqld-exporter
     environment:
-      DATA_SOURCE_NAME: "exporter:exporter_password@tcp(mysql:3306)/"
-      MYSQLD_EXPORTER_WEB_LISTEN_ADDRESS: "0.0.0.0:9104"
+      - MYSQLD_EXPORTER_WEB_LISTEN_ADDRESS="0.0.0.0:9104"
+    command:
+      - '--config.my-cnf=/etc/mysql-exporter.cnf'
+    volumes:
+      - ./mysqld-exporter-config/exporter.cnf:/etc/mysql-exporter.cnf:ro
     ports:
       - "9104:9104"
     depends_on:
       - mysql
     networks:
       - observ-net
+    restart: unless-stopped
 
   app1:
     build: ./app
     container_name: app1
+    ports:
+      - "5001:5000"
     networks:
       - observ-net
     depends_on:
@@ -38,6 +44,8 @@ services:
   app2:
     build: ./app
     container_name: app2
+    ports:
+      - "5002:5000"
     networks:
       - observ-net
     depends_on:
@@ -59,7 +67,7 @@ services:
   nginx-exporter:
     image: nginx/nginx-prometheus-exporter:0.11.0
     container_name: nginx-exporter
-    command: -nginx.scrape-uri http://nginx:8080/nginx_status
+    command: -nginx.scrape-uri http://nginx:8080/stub_status
     depends_on:
       - nginx
     networks:

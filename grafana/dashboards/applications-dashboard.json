@@ -1,5 +1,5 @@
 {
-  "dashboard": {
+  
     "id": null,
     "title": "Applications Dashboard (app1 & app2)",
     "tags": ["applications", "flask"],
@@ -11,11 +11,7 @@
         "type": "timeseries",
         "targets": [
           {
-            "expr": "rate(app_requests_total{instance=~\"app1:5000\"}[5m])",
-            "legendFormat": "{{instance}} - {{path}} ({{code}})"
-          },
-          {
-            "expr": "rate(app_requests_total{instance=~\"app2:5000\"}[5m])",
+            "expr": "rate(app_requests_total{instance=~\"app1:5000|app2:5000\"}[5m])",
             "legendFormat": "{{instance}} - {{path}} ({{code}})"
           }
         ],
@@ -87,5 +83,5 @@
       "to": "now"
     },
     "refresh": "5s"
-  }
+  
 }
