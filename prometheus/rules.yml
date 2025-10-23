@@ -20,7 +20,7 @@ groups:
           description: "El exporter de MySQL no responde"
 
       - alert: AppInstanceDown
-        expr: sum(up{job="apps"}) == 0
+        expr: up{job="apps"} == 0
         for: 1m
         labels:
           severity: warning
